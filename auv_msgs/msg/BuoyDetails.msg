@@ -1,0 +1,12 @@
+FramePoint left_buoy_center
+FramePoint mid_buoy_center
+FramePoint right_buoy_center
+string left_buoy_color
+bool left_buoy_blinking
+string mid_buoy_color
+bool mid_buoy_blinking
+string right_buoy_color
+bool right_buoy_blinking
+float32 left_buoy_radius
+float32 mid_buoy_radius
+float32 right_buoy_radius

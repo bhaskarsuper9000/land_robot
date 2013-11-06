@@ -1,0 +1,8 @@
+#goal definition
+string transition_type
+---
+#result definition
+string status
+---
+#feedback definition
+int8 percent_done

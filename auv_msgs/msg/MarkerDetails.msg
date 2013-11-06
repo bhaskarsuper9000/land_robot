@@ -1,0 +1,7 @@
+FramePoint center
+int32 orientation
+bool status
+FramePoint target_center1
+bool target_status1
+FramePoint target_center2
+bool target_status2

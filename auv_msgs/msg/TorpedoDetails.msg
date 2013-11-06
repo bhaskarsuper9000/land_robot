@@ -1,0 +1,8 @@
+FramePoint center
+bool status
+string target_center_direction
+FramePoint target_center1
+bool target_status1
+bool target_shoot1
+FramePoint target_center2
+bool target_status2

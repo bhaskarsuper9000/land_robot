@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- Launches all the nodes at the same time hence prevents initial drift -->
+  
+  <!--node pkg="uvc_camera" type="uvc_camera_node" name="uvc_camera_node" args="1" output="screen">
+        <param name="width" type="int" value="320" />
+        <param name="height" type="int" value="240" />
+        <param name="fps" type="int" value="10" />
+        <remap from="/image_raw" to="/bottom_camera/image_raw"/>
+  </node-->
+  <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+    <param name="video_device" value="/dev/video1" />
+    <param name="image_width" value="320" />
+    <param name="image_height" value="240" />
+    <param name="pixel_format" value="mjpeg" />
+    <param name="camera_frame_id" value="usb_cam" />
+    <param name="io_method" value="mmap"/>
+    <remap from="image" to="/bottom_camera/image_raw"/>
+    <remap from="/usb_cam/image_raw" to="/bottom_camera/image_raw"/>
+  </node>
+  <node pkg="test_vision" type="vision_node" respawn="true" name="vision_node" output="screen">
+  </node>
+
+  <node pkg="auv_imu_driver" name="imu_rugged" type="vn100_node" args="$(optenv IMU_PORT /dev/ttyUSB0) nonrugged" respawn="true" output="screen"/>
+
+  <node pkg="syn" type="tc5_imu" name="tc5_imu" output="screen">
+  </node>
+
+  <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf" output="screen">
+  </node>
+
+  <node pkg="syn" type="q2p" name="q2p" output="screen">
+    <remap from="/imu_data" to ="/imu/nonrugged/data" />
+  </node>
+
+
+</launch>

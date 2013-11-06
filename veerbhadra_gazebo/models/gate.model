@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<gazebo version="1.0">
+    <model name="gate" static="true">
+        <link name="leg1">
+            <inertial mass="1.0">
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+            </inertial>
+            <visual name="visual1">
+                <origin pose="0 -2 0.75 0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.1" length="1.5"/>
+                </geometry>
+                <material script="Gazebo/Red"/>
+            </visual>
+            <collision name="collision1">
+                <origin pose="0 -2 0.75 0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.1" length="1.5"/>
+                </geometry>
+            </collision>
+
+            <visual name="visual2">
+                <origin pose="0 2 0.75 0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.1" length="1.5"/>
+                </geometry>
+                <material script="Gazebo/Red"/>
+            </visual>
+            <collision name="collision2">
+                <origin pose="0 2 0.75 0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.1" length="1.5"/>
+                </geometry>
+            </collision>
+
+
+        </link>
+    </model>
+</gazebo>

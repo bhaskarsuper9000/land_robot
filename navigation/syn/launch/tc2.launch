@@ -1,0 +1,14 @@
+<launch>
+  <!-- Launches all the nodes at the same time hence prevents initial drift -->
+  <node pkg="syn" type="tc2_vo" name="tc2_vo" output="screen">
+  </node>
+
+  <node pkg="syn" type="tc2_imu" name="tc2_imu" output="screen">
+  </node>
+
+  <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf" output="screen">
+  </node>
+
+  <node pkg="syn" type="q2p" name="q2p" output="screen">
+  </node>
+</launch>

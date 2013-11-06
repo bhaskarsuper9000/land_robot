@@ -1,0 +1,17 @@
+This node is the driver for vn100 imu provided by VectorNav
+
+Please refer datasheet of the imu to understand the type of data it provides in current configuration.
+
+input to this module is a serial data from serial port.
+
+Ros related info
+	Subscriptions:
+ 
+
+	Services:
+		std_srvs::Empty 			--- /imu/calibrate	
+
+	Publications: 
+		sensor_msgs::Imu 			--- /imu/data
+		std_msgs::Bool 				--- /imu/is_calibrated		
+	

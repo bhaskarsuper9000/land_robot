@@ -1,0 +1,2 @@
+bool task_execution_possible
+bool task_execution_complete

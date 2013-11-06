@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+  <name>veerbhadra_description</name>
+  <version>0.5.0</version>
+  <description>The land_description package</description>
+  <maintainer email="savant@todo.todo">savant</maintainer>
+  <license>>GPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>gazebo_ros</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+
+</package>

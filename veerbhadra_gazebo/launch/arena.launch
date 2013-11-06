@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <node name="gate" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find veerbhadra_gazebo)/models/gate.model -gazebo -model gate -x 3"/>
+
+    <node name="green_buoy" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find veerbhadra_gazebo)/models/green_buoy.model -gazebo -model green_buoy -x 8 -y 2"/>
+
+    <node name="yellow_buoy" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find veerbhadra_gazebo)/models/yellow_buoy.model -gazebo -model yellow_buoy -x 9 -y 1"/>
+
+    <node name="red_buoy" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find veerbhadra_gazebo)/models/red_buoy.model -gazebo -model red_buoy -x 7 -y 3"/>
+
+    <node name="plank" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find veerbhadra_gazebo)/models/plank.model -gazebo -model plank -x 6 -y 1"/>
+
+    <node name="veerbhadra" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find veerbhadra_gazebo)/models/veerbhadra.urdf -urdf -model veerbhadra -z 2"/>
+
+    <node name="inverted_gate" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find veerbhadra_gazebo)/models/inverted_gate.model -gazebo -model inverted_gate -x 10"/>
+
+    <node name="window" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find veerbhadra_gazebo)/models/window.model -gazebo -model window -x 11"/>
+</launch>

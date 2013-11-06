@@ -1,0 +1,27 @@
+<stack>
+    <description brief="AUV-IITB: The entire software stack for the Robosub Competition 2014">
+        The stack contains 
+        * driver for the vn100 IMU
+        * a simulator for the vehicle developed for the year 2014
+        * firmware to be run on the embedded systems (non-ROS code)
+        * a package to communicate with the embedded system over CAN and UART
+        * a package to process underwater images (specific to the competition
+        * navigation and mission planner system
+        * debug inerface to interact with the vehicle
+    </description>
+
+    <author>Maintained by AUV-IITB, 2014</author>
+    <license>Proprietary</license>
+    <review status="unreviewed" notes=""/>
+    <url>http://www.auv-iitb.org</url>
+    <depend stack="ros" />
+    <depend stack="ros_comm" />
+    <depend stack="robot_model" />
+    <depend stack="xacro" />
+    <depend stack="simulator_gazebo" />
+    <depend stack="navigation" />
+    <depend stack="laser_pipeline" />
+    <depend stack="slam_gmapping" />
+    <depend stack="geometry" />
+    <depend stack="common_msgs" />
+</stack>

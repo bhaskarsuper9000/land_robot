@@ -1,0 +1,5 @@
+float32 motor_battery
+float32 elec_battery
+bool kill_switch_1_status
+bool kill_switch_2_status
+bool thruster_status

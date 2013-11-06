@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<launch>
+    <node machine="sbc" pkg="auv_imu_driver" name="imu_board" type="vn100_node" args="$(optenv IMU_PORT /dev/ttyUSB1) board" respawn="true" output="screen"/>
+    <node machine="sbc" pkg="auv_imu_driver" name="imu_rugged" type="vn100_node" args="$(optenv IMU_PORT /dev/ttyUSB0) rugged" respawn="true" output="screen"/>
+    <node machine="sbc" pkg="auv_imu_driver" name="quaternion_to_rpy" type="quaternion_to_rpy" respawn="false" output="screen"/>
+</launch>

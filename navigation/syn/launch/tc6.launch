@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Launches all the nodes at the same time hence prevents initial drift -->
+  <node pkg="syn" type="tc6_imu" name="tc6_imu" output="screen">
+  </node>
+
+  <!--node pkg="tf" type="static_transform_publisher" name="imu_tf" output="screen" args="0 0 0 0 0 0 /imu /base_footprint 1">
+  </node-->
+
+  <node pkg="syn" type="tc6_vo" name="tc6_vo" output="screen">
+  </node>
+
+  <!--node pkg="tf" type="static_transform_publisher" name="camera_tf" output="screen" args="0 0 0 0 0 0 /vo /base_footprint 1">
+  </node-->
+
+  <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf" output="screen">
+  </node>
+
+  <node pkg="syn" type="q2p" name="q2p" output="screen">
+  </node>
+</launch>

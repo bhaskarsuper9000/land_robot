@@ -1,0 +1,5 @@
+uint8 TORPEDO_LEFT=1
+uint8 TORPEDO_RIGHT=2
+uint8 torpedo
+---
+bool status

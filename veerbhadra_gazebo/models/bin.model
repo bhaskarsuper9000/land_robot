@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<gazebo version="1.0">
+    <model name="plank" static="true">
+    <link name="body">
+        <inertial mass="1.0">
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+        <visual name="bin_center">
+            <origin pose="0 0 -0.125 0 0 0"/>
+            <geometry>
+                <box size="1 0.5 0.25"/>
+            </geometry>
+            <material script="Gazebo/FlatBlack"/>
+        </visual>
+
+        <visual name="bin_net">
+            <origin pose="0 0 -0.01 0 0 0"/>
+            <geometry>
+                <box size="1.5 1 0.01"/>
+            </geometry>
+            <material script="Gazebo/White"/>
+        </visual>
+
+    </link>
+    </model>
+</gazebo>

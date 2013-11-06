@@ -1,0 +1,19 @@
+<package>
+  <description brief="auv_imu_driver">
+
+     vn100_imu_driver: Driver for Vectornav IMU
+
+  </description>
+  <author>AUV-IITB</author>
+  <license>Proprietary</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://www.auv-iitb.org</url>
+  <depend package="roscpp"/>
+  <depend package="auv_msgs"/>
+  <depend package="std_msgs"/>
+  <depend package="sensor_msgs"/>
+  <depend package="geometry_msgs"/>
+
+</package>
+
+

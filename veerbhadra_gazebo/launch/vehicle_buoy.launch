@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <node name="red_buoy" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find veerbhadra_gazebo)/models/red_buoy.model -gazebo -model red_buoy -x 6 -y 2"/>
+
+    <node name="veerbhadra" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find veerbhadra_description)/urdf/veerbhadra.urdf -urdf -model veerbhadra -z 2"/>
+
+
+</launch>

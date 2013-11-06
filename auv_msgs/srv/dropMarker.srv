@@ -1,0 +1,5 @@
+uint8 MARKER_LEFT=1
+uint8 MARKER_RIGHT=2
+uint8 marker
+---
+bool status

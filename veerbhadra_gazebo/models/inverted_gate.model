@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<gazebo version="1.0">
+    <model name="inverted_gate" static="true">
+        <link name="legs">
+            <inertial mass="1.0">
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+            </inertial>
+            <visual name="visualside1">
+                <origin pose="0 -1.5 1.5 0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.1" length="1"/>
+                </geometry>
+                <material script="Gazebo/Green"/>
+            </visual>
+            <collision name="collision1">
+                <origin pose="0 -1.5 1.5 0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.1" length="1"/>
+                </geometry>
+            </collision>
+
+            <visual name="visualside0">
+                <origin pose="0 1.5 1.5 0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.1" length="1"/>
+                </geometry>
+                <material script="Gazebo/Green"/>
+            </visual>
+            <collision name="collision2">
+                <origin pose="0 1.5 1.5 0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.1" length="1"/>
+                </geometry>
+            </collision>
+
+            <visual name="visualbottom">
+                <origin pose="0 0 0 0 1.5707 1.5707"/>
+                <geometry>
+                    <cylinder radius="0.1" length="3"/>
+                </geometry>
+                <material script="Gazebo/Green"/>
+            </visual>
+            <collision name="collision3">
+                <origin pose="0 0 0 0 1.5707 1.5707"/>
+                <geometry>
+                    <cylinder radius="0.1" length="3"/>
+                </geometry>
+            </collision>
+
+        </link>
+    </model>
+</gazebo>

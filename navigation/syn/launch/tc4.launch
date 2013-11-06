@@ -1,0 +1,15 @@
+<launch>
+  <!-- Launches all the nodes at the same time hence prevents initial drift
+  Todo : Add the vo node launcher -->
+  <node pkg="test_vision" type="vision_node" respawn="true" name="vision_node" output="screen">
+  </node>
+
+  <node pkg="syn" type="tc4_imu" name="tc4_imu" output="screen">
+  </node>
+
+  <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf" output="screen">
+  </node>
+
+  <node pkg="syn" type="q2p" name="q2p" output="screen">
+  </node>
+</launch>

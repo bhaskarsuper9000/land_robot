@@ -1,0 +1,9 @@
+#goal definition
+string execution_type
+---
+#result definition
+string status
+---
+#feedback definition
+int8 percent_done
+#goal definition

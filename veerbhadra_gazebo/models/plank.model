@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<gazebo version="1.0">
+    <model name="plank" static="true">
+    <link name="body">
+        <inertial mass="1.0">
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+        <visual name="visual1">
+            <origin pose="0 0 0 0 0 0.3"/>
+            <geometry>
+                <box size="0.4 0.1 0.01"/>
+            </geometry>
+            <material script="Gazebo/Red"/>
+        </visual>
+    </link>
+    </model>
+</gazebo>

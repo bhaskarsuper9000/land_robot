@@ -1,0 +1,7 @@
+MapPoint red_buoy_center
+MapPoint yellow_buoy_center
+MapPoint green_buoy_center
+MapPoint plank_coord_1
+MapPoint plank_coord_2
+MapPoint gate_coord_1
+MapPoint gate_coord_2

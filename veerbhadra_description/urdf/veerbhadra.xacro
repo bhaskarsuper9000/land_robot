@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+
+
+<robot name="veerbhadra" xmlns:xacro="http://www.ros.org/wiki/xacro" xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor" xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
+
+
+<xacro:property name="base_length" value="1.5"/>
+<xacro:property name="base_width" value="1.0"/>
+<xacro:property name="base_height" value="0.2"/>
+<xacro:property name="head_height" value="0.2"/>
+<xacro:property name="wheel_radius" value="0.2"/>
+<xacro:property name="wheel_width" value="0.1"/>
+<xacro:property name="imu_length" value="0.1"/>
+<xacro:property name="front_cam_radius" value="0.1"/>
+<xacro:property name="front_cam_length" value="0.1"/>
+<xacro:property name="bottom_cam_radius" value="0.1"/>
+<xacro:property name="bottom_cam_length" value="0.1"/>
+
+<!-- The Frame and its Joint with the World -->
+    <link name="base">
+        <visual>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="${base_length} ${base_width} ${base_height}"/>
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="${base_length} ${base_width} ${base_height}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 0"/>
+            <mass value="1.0"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/> 
+        </inertial>
+    </link>
+    <gazebo reference="base">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+<!-- The Head and its Joint with the Frame -->
+    
+    <link name="head">
+        <visual>
+            <origin xyz="0 0 ${head_height/2}"/> 
+            <geometry>
+                <box size="${head_height} ${head_height} ${head_height}"/>
+            </geometry>
+            <material name="green">
+                <color rgba="0 1 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 ${head_height/2}"/> 
+            <geometry>
+                <box size="${head_height} ${head_height} ${head_height}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 ${head_height/2}"/> 
+            <mass value="1.0"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/> 
+        </inertial>
+    </link>
+
+    <joint name="head_joint" type="fixed">
+        <origin xyz="${(base_length-head_height)/2} 0 ${base_height/2}"/>
+        <parent link="base"/>
+        <child link="head"/>
+    </joint>
+
+    <gazebo reference="head">
+        <material>Gazebo/Green</material>
+    </gazebo>
+<!-- The Wheel macro -->
+    
+    <xacro:macro name="wheel" params="x_reflect y_reflect radius width wheel_name">
+        <link name="${wheel_name}_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="1.57075 0 0"/>
+                <geometry>
+                    <cylinder radius="${radius}" length="${width}"/>
+                </geometry>
+                <material name="red">
+                    <color rgba="1 0 0 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="1.57075 0 0"/>
+                <geometry>
+                    <cylinder radius="${radius}" length="${width}"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="1.0"/>
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/> 
+            </inertial>
+        </link>
+        <gazebo reference="${wheel_name}_link">
+            <material>Gazebo/Red</material>
+            <mu1 value="1.0"/>
+            <mu2 value="1.0"/>
+        </gazebo>
+        <joint name="${wheel_name}_joint" type="continuous">
+            <axis xyz="0 1 0"/>
+            <origin xyz="${x_reflect*4*base_length/10} ${y_reflect*6*base_width/10} -${5*wheel_radius/2}"/>
+            <parent link="base"/>
+            <child link="${wheel_name}_link"/>
+        </joint>
+    </xacro:macro>
+
+    <gazebo>
+        <controller:diffdrive_plugin name="differential_drive_controller" plugin="libdiffdrive_plugin.so">
+            <alwaysOn>true</alwaysOn>
+            <update>100</update>
+            <updateRate>100.0</updateRate>
+            <leftJoint>lb_joint</leftJoint>
+            <rightJoint>rb_joint</rightJoint>
+            <wheelSeparation>${0.6*base_width}</wheelSeparation>
+            <wheelDiameter>${2*wheel_radius}</wheelDiameter>
+            <torque>5</torque>
+            <interface:position name="position_iface_0"/>
+            <topicName>simulator/cmd_vel</topicName>
+        </controller:diffdrive_plugin>
+    </gazebo>
+
+<!-- The IMU -->
+
+    <joint name="imu_joint" type="fixed">
+        <axis xyz="1 0 0"/>
+        <origin xyz="0 0 ${(base_height+imu_length)/2}"/>
+        <parent link="base"/>
+        <child link="imu_link"/>
+    </joint>
+
+
+    <link name="imu_link">
+        <inertial>
+            <mass value="0.001"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+        </inertial>
+
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+            <box size="${imu_length} ${imu_length} ${imu_length}"/>
+            </geometry>
+        </visual>
+
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+            <box size="${imu_length} ${imu_length} ${imu_length}"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <gazebo reference="imu_link">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <gazebo>
+      <controller:gazebo_ros_imu name="imu_controller" plugin="libgazebo_ros_imu.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>50.0</updateRate> 
+        <bodyName>imu_link</bodyName>
+        <topicName>imu/data</topicName>
+        <gaussianNoise>2.89e-08</gaussianNoise>
+        <xyzOffsets>0 0 0</xyzOffsets>
+        <rpyOffsets>0 0 0</rpyOffsets>	
+        <interface:position name="imu_position"/>
+      </controller:gazebo_ros_imu>
+    </gazebo>
+
+
+<!-- Front Camera -->
+
+    <link name="front_cam_link">
+        <inertial>
+            <mass value="0.01" />
+            <origin xyz="0 0 0" rpy="0 1.57075 0" />
+            <inertia ixx="0.001"  ixy="0.0"  ixz="0.0"
+            iyy="0.001"  iyz="0.0"
+            izz="0.001" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 1.57075 0" />
+            <geometry>
+                <cylinder radius="${front_cam_radius}" length="${front_cam_length}"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 1.57075 0" />
+            <geometry>
+                <cylinder radius="${front_cam_length}" length="${front_cam_length}"/>
+            </geometry>
+        </collision>
+    </link>
+
+
+    <joint name="front_cam_joint" type="fixed">
+        <origin xyz="${base_length/2} 0 ${base_height head_heigh/2t}" rpy="0 0 0"/>
+        <parent link="base" />
+        <child link="front_cam_link"/>
+    </joint>
+
+     <gazebo reference="front_cam_link">
+        <sensor:camera name="front_cam_sensor">
+            <imageSize>640 480</imageSize>
+            <imageFormat>R8G8B8</imageFormat>
+            <hfov>90</hfov>
+            <nearClip>0.01</nearClip>
+            <farClip>100</farClip>
+            <updateRate>20.0</updateRate>
+            <controller:gazebo_ros_prosilica name="front_camera_controller" plugin="libgazebo_ros_prosilica.so">
+                <alwaysOn>true</alwaysOn>
+                <updateRate>20.0</updateRate>
+                <imageTopicName>front_camera/image</imageTopicName>
+                <frameName>front_cam_link</frameName>
+                <interface:camera name="front_cam_iface" />
+            </controller:gazebo_ros_prosilica>
+        </sensor:camera>
+        <turnGravityOff>true</turnGravityOff>
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+<!-- Bottom Camera -->
+
+    <link name="bottom_cam_link">
+        <inertial>
+            <mass value="0.01" />
+            <origin xyz="0 0 0" rpy="0 1.57075 0" />
+            <inertia ixx="0.001"  ixy="0.0"  ixz="0.0"
+            iyy="0.001"  iyz="0.0"
+            izz="0.001" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 1.57075 0" />
+            <geometry>
+                <cylinder radius="${bottom_cam_radius}" length="${bottom_cam_length}"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 1.57075 0" />
+            <geometry>
+                <cylinder radius="${bottom_cam_length}" length="${bottom_cam_length}"/>
+            </geometry>
+        </collision>
+    </link>
+
+
+    <joint name="bottom_cam_joint" type="fixed">
+        <origin xyz="${(base_length)/2 - bottom_cam_radius)} 0 ${-(base_height+bottom_cam_length)/2}" rpy="0 1.57075 0"/>
+        <parent link="base" />
+        <child link="bottom_cam_link"/>
+    </joint>
+
+     <gazebo reference="bottom_cam_link">
+        <sensor:camera name="bottom_cam_sensor">
+            <imageSize>640 480</imageSize>
+            <imageFormat>R8G8B8</imageFormat>
+            <hfov>90</hfov>
+            <nearClip>0.01</nearClip>
+            <farClip>100</farClip>
+            <updateRate>20.0</updateRate>
+            <controller:gazebo_ros_prosilica name="bottom_camera_controller" plugin="libgazebo_ros_prosilica.so">
+                <alwaysOn>true</alwaysOn>
+                <updateRate>20.0</updateRate>
+                <imageTopicName>bottom_camera/image</imageTopicName>
+                <frameName>bottom_cam_link</frameName>
+                <interface:camera name="bottom_cam_iface" />
+            </controller:gazebo_ros_prosilica>
+        </sensor:camera>
+        <turnGravityOff>true</turnGravityOff>
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+<!-- use the Wheel xacro to create the wheels -->
+    <xacro:wheel wheel_name="lf" radius="${wheel_radius}" width="${wheel_width}" x_reflect="1" y_reflect="1"/>
+    <xacro:wheel wheel_name="lb" radius="${wheel_radius}" width="${wheel_width}" x_reflect="-1" y_reflect="1"/>
+    <xacro:wheel wheel_name="rf" radius="${wheel_radius}" width="${wheel_width}" x_reflect="1" y_reflect="-1"/>
+    <xacro:wheel wheel_name="rb" radius="${wheel_radius}" width="${wheel_width}" x_reflect="-1" y_reflect="-1"/>
+</robot>
